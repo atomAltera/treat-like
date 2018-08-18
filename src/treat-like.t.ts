@@ -11,18 +11,6 @@ export interface Pipe<I, C> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 export interface Schema {
     [name: string]: Pipe<any, any> | Schema;
 }

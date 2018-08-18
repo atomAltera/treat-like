@@ -1,8 +1,8 @@
 {
   "name": "treat-like",
-  "version": "0.0.1",
+  "version": "0.0.2-dev.4",
   "description": "Validation and sanitization library",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "mocha -r ts-node/register test/**/*.ts"
@@ -13,14 +13,12 @@
   ],
   "author": "Konstantin Alikhanov",
   "license": "ISC",
-  "dependencies": {
-    "typescript": "^3.0.1"
-  },
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/mocha": "^5.2.5",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
-    "ts-node": "^7.0.1"
+    "ts-node": "^7.0.1",
+    "typescript": "^3.0.1"
   }
 }

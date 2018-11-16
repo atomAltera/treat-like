@@ -1,4 +1,4 @@
-import {Converter, Input, Pipe, Report, Schema, Validator} from "./treat-like.t";
+import {Converter, Input, Pipe, Report, Schema, Validator} from "./types";
 
 const pipeChainMethods = <I, C>(f: () => Pipe<I, C>) => ({
     as: <N>(converter: Converter<C, N>, message?: string): Pipe<I, N> =>
@@ -137,7 +137,7 @@ export const sanitize = <T extends Schema>(schema: T, input: Input<T>): Promise<
         })
     ).then(() => {
         return {
-            ok: false,
+            ok: Object.keys(errors).length == 0,
             values,
             errors
         } as Report<T>

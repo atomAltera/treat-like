@@ -1,6 +1,6 @@
 {
   "name": "treat-like",
-  "version": "0.0.2-dev.5",
+  "version": "0.0.2",
   "description": "Validation and sanitization library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

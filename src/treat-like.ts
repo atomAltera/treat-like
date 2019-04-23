@@ -127,7 +127,6 @@ export const sanitize = <T extends Schema>(schema: T, input: Input<T>): Promise<
                 return sanitize(rule, raw).then(report => {
                     if (report.ok) {
                         values[key] = report.values;
-                        errors[key] = {};
                     } else {
                         values[key] = report.values;
                         errors[key] = report.errors;

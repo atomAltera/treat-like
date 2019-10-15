@@ -1,7 +1,0 @@
-.idea
-.git
-node_modules
-src
-test
-tsconfig.json
-.gitignore

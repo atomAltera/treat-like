@@ -1,6 +1,6 @@
-import {shape} from "./shape-chain";
-import {createContinueResult, createErrorResult} from "./result-builders";
-import {createTestsForChain, number, optional, required, string} from "./test-utils";
+import {shape} from "../../src/shape-chain";
+import {createContinueResult, createErrorResult} from "../../src/result-builders";
+import {createTestsForChain, number, optional, required, string} from "../utils";
 
 describe("shape", () => {
 

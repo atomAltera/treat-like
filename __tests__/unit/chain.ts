@@ -1,6 +1,6 @@
-import {joinSteps, treat} from "./chain";
-import {createContinueResult, createErrorResult, createStopResult} from "./result-builders";
-import {createTestsForChain} from "./test-utils";
+import {joinSteps, treat} from "../../src/chain";
+import {createContinueResult, createErrorResult, createStopResult} from "../../src/result-builders";
+import {createTestsForChain} from "../utils";
 
 
 describe("treat", () => {

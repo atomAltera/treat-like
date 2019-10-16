@@ -1,7 +1,7 @@
-import {createContinueResult} from "./result-builders";
-import {createTestsForChain, number, required, string, uppercase} from "./test-utils";
-import {array} from "./array-chain";
-import {tuple} from "./tuple-chain";
+import {createContinueResult} from "../../src/result-builders";
+import {createTestsForChain, number, required, string, uppercase} from "../utils";
+import {array} from "../../src/array-chain";
+import {tuple} from "../../src/tuple-chain";
 
 describe("array", () => {
 

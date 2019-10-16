@@ -37,7 +37,6 @@ export function treat<I, CO = I, SO = never, E = never>(step: Step<I, CO, SO, E>
         return treat(joinSteps(stepClone, newStep));
     }
 
-    const chain = Object.assign(stepClone, {then});
-    return Object.freeze(chain);
+    return Object.assign(stepClone, {then});
 }
 

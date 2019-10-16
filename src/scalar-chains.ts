@@ -17,7 +17,7 @@ export const unknown = treat<unknown>(createContinueResult);
 /**
  * Validates input value not a null or undefined
  */
-export const required = treat(
+const _required = treat(
     <T>(value: T | null | undefined): Result<T, never, string> =>
         value === null || value === undefined ? createErrorResult("required") : createContinueResult(value)
 );
@@ -26,16 +26,26 @@ export const required = treat(
 /**
  * Stops chain if value is null or undefined
  */
-export const optional = treat(
+const _optional = treat(
     <T>(value: T | null | undefined): Result<T, null | undefined, never> =>
         value === null || value === undefined ? createStopResult(value as null | undefined) : createContinueResult(value)
 );
 
 
 /**
+ * Stops chain if value is null or undefined and outputs provided *value*
+ * @param value
+ */
+export const byDefault = <T>(value: T) => treat(
+    <I>(input: I | null | undefined): Result<I, T, never> =>
+        input === null || input === undefined ? createStopResult(value) : createContinueResult(input)
+);
+
+
+/**
  * Validates input value is string
  */
-export const mustBeString = treat(
+export const string = treat(
     (value: unknown): Result<string, never, string> =>
         typeof value === "string" ? createContinueResult(value) : createErrorResult("not_a_string")
 );
@@ -44,31 +54,36 @@ export const mustBeString = treat(
 /**
  * Validates input value is number
  */
-export const mustBeNumber = treat(
+export const number = treat(
     (value: unknown): Result<number, never, string> =>
         typeof value === "number" ? createContinueResult(value) : createErrorResult("not_a_number")
 );
 
 
 /**
- * Chain that checks input value is provided and is a string
+ * Validates input value is boolean
  */
-export const requiredString = required.then(mustBeString);
+export const boolean = treat(
+    (value: unknown): Result<boolean, never, string> =>
+        typeof value === "boolean" ? createContinueResult(value) : createErrorResult("not_a_boolean")
+);
 
 
 /**
- * Chain that allows input value to be null or undefined, otherwise must be a string
+ * Validates input value not a null or undefined
  */
-export const optionalString = optional.then(mustBeString);
+export const required = Object.assign(_required, {
+    string: _required.then(string),
+    number: _required.then(number),
+    boolean: _required.then(boolean),
+});
 
 
 /**
- * Chain that checks input value is provided and is a number
+ * Stops chain if value is null or undefined
  */
-export const requiredNumber = required.then(mustBeNumber);
-
-
-/**
- * Chain that allows input value to be null or undefined, otherwise must be a number
- */
-export const optionalNumber = optional.then(mustBeNumber);
+export const optional = Object.assign(_optional, {
+    string: _optional.then(string),
+    number: _optional.then(number),
+    boolean: _optional.then(boolean),
+});

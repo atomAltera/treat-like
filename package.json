@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/atomAltera/treat-like.git"
   },
-  "keywords": [],
+  "keywords": ["validation", "sabitization", "serialization", "deserizalization"],
   "author": "",
   "license": "ISC",
   "devDependencies": {

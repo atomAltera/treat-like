@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/atomAltera/treat-like",
   "keywords": ["validation", "sabitization", "serialization", "deserizalization"],
-  "author": "",
+  "author": {
+    "email": "atomaltera@gmail.com",
+    "name": "Konstantin Alikhanov"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^24.0.18",

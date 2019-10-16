@@ -11,11 +11,11 @@ export const optional = treat(
 );
 
 export const string = treat(
-    (x: unknown) => typeof x !== "string" ? createErrorResult("must_be_a_string") : createContinueResult(x)
+    (x: unknown) => typeof x !== "string" ? createErrorResult("not_a_string") : createContinueResult(x)
 );
 
 export const number = treat(
-    (x: unknown) => typeof x !== "number" ? createErrorResult("must_be_a_number") : createContinueResult(x)
+    (x: unknown) => typeof x !== "number" ? createErrorResult("not_a_number") : createContinueResult(x)
 );
 
 export const uppercase = treat(

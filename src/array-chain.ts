@@ -1,22 +1,26 @@
-import {Chain} from "./types";
+import {Result, Step} from "./types";
 import {createContinueResult, createErrorResult} from "./result-builders";
 import {treat} from "./chain";
 
 
 /**
  * Creates array validation chain from given chain
- * @param chain
+ * @param step
  */
-export const array = <I, CO, SO, E>(chain: Chain<I, CO, SO, E>) => {
-    return treat((input: I[]) => {
+export const array = <I, CO, SO, E>(step: Step<I, CO, SO, E>) => {
+    return treat((input: I[]): Result<(CO | SO)[], never, (E | undefined)[] | string> => {
         const error: (E | undefined)[] = [];
         const output: (CO | SO)[] = [];
+
+        if (!Array.isArray(input)) {
+            return createErrorResult("not_an_array");
+        }
 
         let hasErrors = false;
 
         for (const item of input) {
 
-            const result = chain(item);
+            const result = step(item);
 
             if (result.ok) {
                 output.push(result.output);

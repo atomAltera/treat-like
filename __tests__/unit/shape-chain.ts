@@ -51,24 +51,67 @@ describe("shape", () => {
         };
 
         const expectedResult = createErrorResult({
-            name: "must_be_a_string",
-            age: "must_be_a_number",
+            name: "not_a_string",
+            age: "not_a_number",
         });
 
         createTestsForChain(chain, input, expectedResult);
     });
 
-    describe("wrong type of required  fields", () => {
+    describe("wrong type of required fields", () => {
         const input = {
             email: 123,
             name: "John Doe",
         };
 
         const expectedResult = createErrorResult({
-            email: "must_be_a_string",
+            email: "not_a_string",
         });
 
         createTestsForChain(chain, input, expectedResult);
     });
+
+    describe("wrong type of input value", () => {
+        const input = 12;
+
+        const expectedResult = createErrorResult({email: "not_provided"});
+
+        createTestsForChain(chain, input, expectedResult, 0);
+    });
+
+    describe("null as input value", () => {
+        const input = null;
+
+        const expectedResult = createErrorResult({email: "not_provided"});
+
+        createTestsForChain(chain, input, expectedResult, 0);
+    });
+
+    describe("undefined as input value", () => {
+        const input = undefined;
+
+        const expectedResult = createErrorResult({email: "not_provided"});
+
+        createTestsForChain(chain, input, expectedResult, 0);
+    });
+
+    describe("work ok with functions", () => {
+        const chain = shape({
+            apply: required,
+            x: required,
+        });
+
+        function f() {
+        }
+
+        const input = Object.assign(f, {x: 10});
+
+        const expectedResult = createContinueResult({
+            apply: f.apply,
+            x: input.x
+        });
+
+        createTestsForChain(chain, input, expectedResult, 0);
+    })
 
 });

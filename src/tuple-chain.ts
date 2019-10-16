@@ -5,9 +5,9 @@ import {treat} from "./chain";
 // Types
 type Scheme = Step<any, any, any, any>[];
 
-type TupleInput<S extends Scheme> = {
-    [K in keyof S]: S[K] extends Step<infer I, any, any, any> ? I : never;
-}
+// type TupleInput<S extends Scheme> = {
+//     [K in keyof S]: S[K] extends Step<infer I, any, any, any> ? I : never;
+// }
 
 type TupleOutput<S extends Scheme> = {
     [K in keyof S]: S[K] extends Step<any, infer CO, infer SO, any> ? CO | SO : never;
@@ -22,7 +22,7 @@ type TupleErrors<S extends Scheme> = {
  * @param scheme
  */
 export const tuple = <S extends Scheme>(...scheme: S) => {
-    return treat((input: TupleInput<S>): Result<TupleOutput<S>, never, TupleErrors<S> | string> => {
+    return treat((input: unknown): Result<TupleOutput<S>, never, TupleErrors<S> | string> => {
         const error: TupleErrors<S> = [] as any;
         const output: TupleOutput<S> = [] as any;
 

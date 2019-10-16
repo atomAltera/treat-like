@@ -25,10 +25,10 @@ type ShapeErrors<S extends Scheme> = {
  * @param scheme
  */
 export const shape = <S extends Scheme>(scheme: S) => {
-    return treat((input: ShapeInput<S>): Result<ShapeOutput<S>, never, ShapeErrors<S> | string> => {
+    return treat((input: unknown): Result<ShapeOutput<S>, never, ShapeErrors<S> | string> => {
 
         if (input === null || input === undefined) {
-            input = {} as ShapeInput<S>
+            input = {};
         }
 
         const error = {} as ShapeErrors<S>;
@@ -40,7 +40,7 @@ export const shape = <S extends Scheme>(scheme: S) => {
 
         for (const key of keys) {
             const fieldStep = scheme[key];
-            const fieldInput = input[key];
+            const fieldInput = (input as ShapeInput<S>)[key];
 
             const fieldResult = fieldStep(fieldInput);
 

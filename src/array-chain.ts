@@ -8,7 +8,7 @@ import {treat} from "./chain";
  * @param step
  */
 export const array = <I, CO, SO, E>(step: Step<I, CO, SO, E>) => {
-    return treat((input: I[]): Result<(CO | SO)[], never, (E | undefined)[] | string> => {
+    return treat((input: unknown): Result<(CO | SO)[], never, (E | undefined)[] | string> => {
         const error: (E | undefined)[] = [];
         const output: (CO | SO)[] = [];
 

@@ -15,6 +15,7 @@
   "bugs": {
     "url": "https://github.com/atomAltera/treat-like/issues"
   },
+  "homepage": "https://github.com/atomAltera/treat-like",
   "keywords": ["validation", "sabitization", "serialization", "deserizalization"],
   "author": "",
   "license": "ISC",

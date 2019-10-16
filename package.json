@@ -1,7 +1,7 @@
 {
   "name": "treat-like",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple, flexible and type safe data validating, sanitizing and serialization/deserialization library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

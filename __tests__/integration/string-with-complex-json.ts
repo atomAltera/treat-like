@@ -1,5 +1,14 @@
-import {array, boolean, byDefault, createContinueResult, createErrorResult, required, shape, string} from "../../src";
-import {lt} from "../../src/validation-chains";
+import {
+    array,
+    boolean,
+    byDefault,
+    createContinueResult,
+    createErrorResult,
+    lt,
+    required,
+    shape,
+    string
+} from "../../src";
 
 
 describe("string with complex json", () => {

@@ -1,15 +1,5 @@
-import {
-    array,
-    boolean,
-    byDefault,
-    createContinueResult,
-    createErrorResult,
-    required,
-    Result,
-    shape,
-    string,
-    treat
-} from "../../src";
+import {array, boolean, byDefault, createContinueResult, createErrorResult, required, shape, string} from "../../src";
+import {lt} from "../../src/validation-chains";
 
 
 describe("string with complex json", () => {
@@ -20,37 +10,6 @@ describe("string with complex json", () => {
             return createErrorResult("invalid_json")
         }
     };
-
-    const lt = <T extends (string | number | Array<any>)>(count: number) =>
-        treat((input: T): Result<T, never, string> => {
-            if (typeof input === "string") {
-                if (input.length < count) {
-                    return createContinueResult(input)
-                } else {
-                    return createErrorResult("too_long")
-                }
-            }
-
-            if (typeof input === "number") {
-                if (input < count) {
-                    return createContinueResult(input)
-                } else {
-                    return createErrorResult("too_big")
-                }
-            }
-
-            if (Array.isArray(input)) {
-                if (input.length < count) {
-                    return createContinueResult(input)
-                } else {
-                    return createErrorResult("too_long")
-                }
-            }
-
-            return createErrorResult("wrong_type")
-        });
-
-
     const email = string.then(x => {
         return x.includes('@') ? createContinueResult(x) : createErrorResult("invalid_email");
     });

@@ -4,7 +4,7 @@ import {
     byDefault,
     createContinueResult,
     createErrorResult,
-    lt,
+    lt, match,
     required,
     shape,
     string
@@ -19,9 +19,7 @@ describe("string with complex json", () => {
             return createErrorResult("invalid_json")
         }
     };
-    const email = string.then(x => {
-        return x.includes('@') ? createContinueResult(x) : createErrorResult("invalid_email");
-    });
+    const email = string.then(match(/^\w+@\w+\.\w+$/));
 
     const phone = string.then(x => {
         return x.match(/^\d+$/) ? createContinueResult(x) : createErrorResult("invalid_phone")

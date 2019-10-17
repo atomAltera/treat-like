@@ -1,4 +1,4 @@
-import {gt, gte, lt, lte} from "../../src/validation-chains";
+import {gt, gte, lt, lte, match} from "../../src/validation-chains";
 import {createContinueResult, createErrorResult} from "../../src";
 
 
@@ -178,3 +178,18 @@ describe("lte", () => {
     });
 });
 
+describe("match", () => {
+    const chain = match(/^\w\d+$/);
+
+    test("passes values that match given regexp", () => {
+        expect(chain("a1234")).toEqual(createContinueResult("a1234"));
+    });
+
+    test("blocks values that dont match given regexp", () => {
+        expect(chain("ab123")).toEqual(createErrorResult("invalid_format"));
+    });
+
+    test("blocks input of unexpected type", () => {
+        expect(chain(true as any)).toEqual(createErrorResult("invalid_type"))
+    });
+});

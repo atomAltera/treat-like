@@ -17,7 +17,7 @@ export const unknown = treat<unknown>(createContinueResult);
 /**
  * Validates input value not a null or undefined
  */
-const _required = treat(
+export const required = treat(
     <T>(value: T | null | undefined): Result<T, never, string> =>
         value === null || value === undefined ? createErrorResult("required") : createContinueResult(value)
 );
@@ -26,7 +26,7 @@ const _required = treat(
 /**
  * Stops chain if value is null or undefined
  */
-const _optional = treat(
+export const optional = treat(
     <T>(value: T | null | undefined): Result<T, null | undefined, never> =>
         value === null || value === undefined ? createStopResult(value as null | undefined) : createContinueResult(value)
 );
@@ -67,23 +67,3 @@ export const boolean = treat(
     (value: unknown): Result<boolean, never, string> =>
         typeof value === "boolean" ? createContinueResult(value) : createErrorResult("not_a_boolean")
 );
-
-
-/**
- * Validates input value not a null or undefined
- */
-export const required = Object.assign(_required, {
-    string: _required.then(string),
-    number: _required.then(number),
-    boolean: _required.then(boolean),
-});
-
-
-/**
- * Stops chain if value is null or undefined
- */
-export const optional = Object.assign(_optional, {
-    string: _optional.then(string),
-    number: _optional.then(number),
-    boolean: _optional.then(boolean),
-});

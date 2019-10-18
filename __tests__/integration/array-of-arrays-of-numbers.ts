@@ -1,10 +1,10 @@
-import {array, createContinueResult, createErrorResult, required, treat} from "../../src";
+import {array, createContinueResult, createErrorResult, number, required, treat} from "../../src";
 
 
 describe("array of arrays of numbers", () => {
     const mul2 = treat((x: number) => createContinueResult(x * 2));
 
-    const chain = array(array(required.number.then(mul2)));
+    const chain = array(array(required.then(number).then(mul2)));
 
     test("valid input", () => {
         const input = [

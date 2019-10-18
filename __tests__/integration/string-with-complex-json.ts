@@ -25,8 +25,8 @@ describe("string with complex json", () => {
         return x.match(/^\d+$/) ? createContinueResult(x) : createErrorResult("invalid_phone")
     });
 
-    const chain = required.string.then(fromJSON).then(array(shape({
-        name: required.string,
+    const chain = required.then(string).then(fromJSON).then(array(shape({
+        name: required.then(string),
         email: required.then(email),
         phones: required.then(array(required.then(phone))).then(lt(3)),
         isActive: byDefault(true).then(boolean),

@@ -3,16 +3,20 @@ export interface ContinueResult<CO> {
     ok: true;
     stop: false;
     output: CO;
+    error: undefined;
 }
 
 export interface StopResult<SO> {
     ok: true;
     stop: true;
     output: SO;
+    error: undefined;
 }
 
 export interface ErrorResult<E> {
     ok: false;
+    stop: true;
+    output: undefined;
     error: E;
 }
 

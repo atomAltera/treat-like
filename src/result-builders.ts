@@ -9,6 +9,7 @@ export function createContinueResult<CO>(output: CO): ContinueResult<CO> {
         ok: true,
         stop: false,
         output,
+        error: undefined,
     });
 }
 
@@ -21,6 +22,7 @@ export function createStopResult<SO>(output: SO): StopResult<SO> {
         ok: true,
         stop: true,
         output,
+        error: undefined,
     });
 }
 
@@ -31,6 +33,8 @@ export function createStopResult<SO>(output: SO): StopResult<SO> {
 export function createErrorResult<E>(error: E): ErrorResult<E> {
     return Object.freeze({
         ok: false,
+        stop: true,
+        output: undefined,
         error,
     });
 }

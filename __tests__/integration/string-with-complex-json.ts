@@ -4,10 +4,11 @@ import {
     byDefault,
     createContinueResult,
     createErrorResult,
-    lt, match,
     required,
+    Result,
     shape,
-    string
+    string,
+    treat
 } from "../../src";
 
 
@@ -19,6 +20,35 @@ describe("string with complex json", () => {
             return createErrorResult("invalid_json")
         }
     };
+
+    const lt = <T extends any>(size: number) => treat(
+        (input: T): Result<T, never, string> => {
+            if (typeof input === "number") {
+                return input < size ? createContinueResult(input) : createErrorResult("too_big")
+            }
+
+            if (typeof input === "string") {
+                return input.length < size ? createContinueResult(input) : createErrorResult("too_long")
+            }
+
+            if (Array.isArray(input)) {
+                return input.length < size ? createContinueResult(input) : createErrorResult("too_long")
+            }
+
+            return createErrorResult("invalid_type");
+        }
+    );
+
+    const match = (regexp: RegExp | string) => treat(
+        (input: string): Result<string, never, string> => {
+            if (typeof input !== "string") {
+                return createErrorResult("invalid_type")
+            }
+
+            return input.match(regexp) ? createContinueResult(input) : createErrorResult("invalid_format")
+        }
+    );
+
     const email = string.then(match(/^\w+@\w+\.\w+$/));
 
     const phone = string.then(x => {

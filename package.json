@@ -18,7 +18,12 @@
     "url": "https://github.com/atomAltera/treat-like/issues"
   },
   "homepage": "https://github.com/atomAltera/treat-like",
-  "keywords": ["validation", "sabitization", "serialization", "deserizalization"],
+  "keywords": [
+    "validation",
+    "sabitization",
+    "serialization",
+    "deserizalization"
+  ],
   "author": {
     "email": "atomaltera@gmail.com",
     "name": "Konstantin Alikhanov"

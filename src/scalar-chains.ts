@@ -67,13 +67,3 @@ export const boolean = treat(
     (value: unknown): Result<boolean, never, string> =>
         typeof value === "boolean" ? createContinueResult(value) : createErrorResult("not_a_boolean")
 );
-
-
-
-let r = string(null);
-
-if (r.ok) {
-    let y = r.output;
-} else {
-    let y = r.error;
-}

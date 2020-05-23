@@ -1,10 +1,10 @@
-import {array, createContinueResult, createErrorResult} from "../../src";
-import {createTestsForChain, required, string, uppercase} from "../utils";
+import {array, createContinueResult, createErrorResult, string} from "../../src";
+import {createTestsForChain, uppercase} from "../utils";
 
 describe("array", () => {
 
     describe("array of required string", () => {
-        const chain = array(required.then(string).then(uppercase));
+        const chain = array(string.then(uppercase));
 
         describe("valid input", () => {
             const input = ["hello", "world"];
@@ -22,7 +22,7 @@ describe("array", () => {
 
         describe("null instead of required value", () => {
             const input = ["hello", null];
-            const expectedResult = createErrorResult([undefined, "not_provided"]);
+            const expectedResult = createErrorResult([undefined, "not_a_string"]);
 
             createTestsForChain(chain, input, expectedResult, 0);
         });

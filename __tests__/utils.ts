@@ -1,21 +1,5 @@
 import {Chain, createContinueResult, createErrorResult, createStopResult, Result, treat} from "../src";
 
-export const required = treat(
-    (x: unknown) => x === undefined || x === null ? createErrorResult("not_provided") : createContinueResult(x)
-);
-
-export const optional = treat(
-    (x: unknown) => x === undefined || x === null ? createStopResult(x) : createContinueResult(x)
-);
-
-export const string = treat(
-    (x: unknown) => typeof x !== "string" ? createErrorResult("not_a_string") : createContinueResult(x)
-);
-
-export const number = treat(
-    (x: unknown) => typeof x !== "number" ? createErrorResult("not_a_number") : createContinueResult(x)
-);
-
 export const uppercase = treat(
     (x: string) => createContinueResult(x.toLocaleUpperCase())
 );

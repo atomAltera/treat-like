@@ -1,10 +1,10 @@
-import {createContinueResult, createErrorResult, shape} from "../../src";
-import {createTestsForChain, number, optional, required, string} from "../utils";
+import {createContinueResult, createErrorResult, number, optional, required, shape, string} from "../../src";
+import {createTestsForChain,} from "../utils";
 
 describe("shape", () => {
 
     const chain = shape({
-        email: required.then(string),
+        email: string,
         name: optional.then(string),
         age: optional.then(number),
     });
@@ -37,7 +37,7 @@ describe("shape", () => {
             age: 30,
         };
 
-        const expectedResult = createErrorResult({email: "not_provided"});
+        const expectedResult = createErrorResult({email: "not_a_string"});
 
         createTestsForChain(chain, input, expectedResult);
     });
@@ -73,7 +73,7 @@ describe("shape", () => {
     describe("wrong type of input value", () => {
         const input = 12;
 
-        const expectedResult = createErrorResult({email: "not_provided"});
+        const expectedResult = createErrorResult({email: "not_a_string"});
 
         createTestsForChain(chain, input, expectedResult, 0);
     });
@@ -81,7 +81,7 @@ describe("shape", () => {
     describe("null as input value", () => {
         const input = null;
 
-        const expectedResult = createErrorResult({email: "not_provided"});
+        const expectedResult = createErrorResult({email: "not_a_string"});
 
         createTestsForChain(chain, input, expectedResult, 0);
     });
@@ -89,7 +89,7 @@ describe("shape", () => {
     describe("undefined as input value", () => {
         const input = undefined;
 
-        const expectedResult = createErrorResult({email: "not_provided"});
+        const expectedResult = createErrorResult({email: "not_a_string"});
 
         createTestsForChain(chain, input, expectedResult, 0);
     });

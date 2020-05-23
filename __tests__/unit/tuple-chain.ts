@@ -1,12 +1,12 @@
-import {array, createContinueResult, createErrorResult, tuple} from "../../src";
-import {createTestsForChain, number, required, string, uppercase} from "../utils";
+import {array, createContinueResult, createErrorResult, number, string, tuple} from "../../src";
+import {createTestsForChain, uppercase} from "../utils";
 
 describe("array", () => {
 
     describe("tuple of required (string, number)", () => {
         const chain = tuple(
-            required.then(string).then(uppercase),
-            required.then(number),
+            string.then(uppercase),
+            number,
         );
 
         describe("valid input", () => {
@@ -18,7 +18,7 @@ describe("array", () => {
 
         describe("null instead of required value", () => {
             const input = ["hello", null];
-            const expectedResult = createErrorResult([undefined, "not_provided"]);
+            const expectedResult = createErrorResult([undefined, "not_a_number"]);
 
             createTestsForChain(chain, input, expectedResult, 0);
         });

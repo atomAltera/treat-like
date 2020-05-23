@@ -1,5 +1,16 @@
-import {any, boolean, byDefault, number, optional, required, string, unknown} from "../../src/scalar-chains";
-import {createContinueResult, createErrorResult, createStopResult} from "../../src/result-builders";
+import {
+    any,
+    boolean,
+    byDefault,
+    createContinueResult,
+    createErrorResult,
+    createStopResult,
+    number,
+    optional,
+    required,
+    string,
+    unknown
+} from "../../src";
 import {createTestsForChain} from "../utils";
 
 

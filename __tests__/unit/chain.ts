@@ -1,5 +1,4 @@
-import {joinSteps, treat} from "../../src/chain";
-import {createContinueResult, createErrorResult, createStopResult} from "../../src/result-builders";
+import {createContinueResult, createErrorResult, createStopResult, joinSteps, treat} from "../../src";
 import {createTestsForChain} from "../utils";
 
 

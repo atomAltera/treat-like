@@ -1,4 +1,4 @@
-import {createContinueResult, createErrorResult, createStopResult} from "../../src/result-builders";
+import {createContinueResult, createErrorResult, createStopResult} from "../../src";
 
 
 describe("createContinueResult", () => {

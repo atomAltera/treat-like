@@ -1,5 +1,4 @@
-import {shape} from "../../src/shape-chain";
-import {createContinueResult, createErrorResult} from "../../src/result-builders";
+import {createContinueResult, createErrorResult, shape} from "../../src";
 import {createTestsForChain, number, optional, required, string} from "../utils";
 
 describe("shape", () => {

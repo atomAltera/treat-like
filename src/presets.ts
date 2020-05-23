@@ -1,6 +1,7 @@
 import {treat} from "./chain";
 import {Result} from "./types";
-import {createContinueResult, createErrorResult, createStopResult} from "./result-builders";
+import {createContinueResult, createStopResult} from "./result-builders";
+import {check, typeCheck} from "./predicate-chain";
 
 
 /**
@@ -17,10 +18,7 @@ export const unknown = treat<unknown>(createContinueResult);
 /**
  * Validates input value not a null or undefined
  */
-export const required = treat(
-    <T>(value: T | null | undefined): Result<T, never, string> =>
-        value === null || value === undefined ? createErrorResult("required") : createContinueResult(value)
-);
+export const required = check(value => value !== null && value !== undefined, "required")
 
 
 /**
@@ -45,25 +43,14 @@ export const byDefault = <T>(value: T) => treat(
 /**
  * Validates input value is string
  */
-export const string = treat(
-    (value: unknown): Result<string, never, string> =>
-        typeof value === "string" ? createContinueResult(value) : createErrorResult("not_a_string")
-);
-
+export const string = typeCheck((x): x is string => typeof x === "string", "not_a_string")
 
 /**
  * Validates input value is number
  */
-export const number = treat(
-    (value: unknown): Result<number, never, string> =>
-        typeof value === "number" ? createContinueResult(value) : createErrorResult("not_a_number")
-);
-
+export const number = typeCheck((x): x is number => typeof x === "number", "not_a_number")
 
 /**
  * Validates input value is boolean
  */
-export const boolean = treat(
-    (value: unknown): Result<boolean, never, string> =>
-        typeof value === "boolean" ? createContinueResult(value) : createErrorResult("not_a_boolean")
-);
+export const boolean = typeCheck((x): x is boolean => typeof x === "boolean", "not_a_boolean")

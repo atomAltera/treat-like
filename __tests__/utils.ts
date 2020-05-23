@@ -1,6 +1,4 @@
-import {Chain, Result} from "../src/types";
-import {createContinueResult, createErrorResult, createStopResult} from "../src/result-builders";
-import {treat} from "../src/chain";
+import {Chain, createContinueResult, createErrorResult, createStopResult, Result, treat} from "../src";
 
 export const required = treat(
     (x: unknown) => x === undefined || x === null ? createErrorResult("not_provided") : createContinueResult(x)

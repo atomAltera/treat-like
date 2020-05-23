@@ -1,6 +1,5 @@
-import {createContinueResult, createErrorResult} from "../../src/result-builders";
+import {array, createContinueResult, createErrorResult} from "../../src";
 import {createTestsForChain, required, string, uppercase} from "../utils";
-import {array} from "../../src/array-chain";
 
 describe("array", () => {
 

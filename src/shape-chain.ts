@@ -3,19 +3,19 @@ import {createContinueResult, createErrorResult} from "./result-builders";
 import {treat} from "./chain";
 
 // Types
-type Scheme = {
+type Shape = {
     [key: string]: Step<any, any, any, any>;
 }
 
-type ShapeInput<S extends Scheme> = {
+type ShapeInput<S extends Shape> = {
     [K in keyof S]: S[K] extends Step<infer I, any, any, any> ? I : never;
 }
 
-type ShapeOutput<S extends Scheme> = {
+type ShapeOutput<S extends Shape> = {
     [K in keyof S]: S[K] extends Step<any, infer CO, infer SO, any> ? CO | SO : never;
 }
 
-type ShapeErrors<S extends Scheme> = {
+type ShapeErrors<S extends Shape> = {
     [K in keyof S]: S[K] extends Step<any, any, any, infer E> ? E | undefined : never;
 };
 
@@ -24,8 +24,8 @@ type ShapeErrors<S extends Scheme> = {
  * Creates object validation chain from given scheme
  * @param scheme
  */
-export const shape = <S extends Scheme>(scheme: S) => {
-    return treat((input: unknown): Result<ShapeOutput<S>, never, ShapeErrors<S> | string> => {
+export const shape = <S extends Shape>(scheme: S) => {
+    return treat((input: unknown): Result<ShapeOutput<S>, never, ShapeErrors<S>> => {
 
         if (input === null || input === undefined) {
             input = {};

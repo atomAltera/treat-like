@@ -94,6 +94,14 @@ describe("shape", () => {
         createTestsForChain(chain, input, expectedResult, 0);
     });
 
+    describe("primitive type as input value", () => {
+        const input = 123;
+
+        const expectedResult = createErrorResult({email: "not_a_string"});
+
+        createTestsForChain(chain, input, expectedResult, 0);
+    });
+
     describe("work ok with functions", () => {
         const chain = shape({
             apply: required,

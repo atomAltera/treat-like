@@ -1,21 +1,21 @@
-import {Chain, Result, Step} from "./types";
+import {Result, Step} from "./types";
 import {createContinueResult, createErrorResult} from "./result-builders";
 import {treat} from "./chain";
 
 // Types
-type Shape = {
+export type Shape = {
     [key: string]: Step<any, any, any, any>;
 }
 
-type ShapeInput<S extends Shape> = {
+export type ShapeInput<S extends Shape> = {
     [K in keyof S]: S[K] extends Step<infer I, any, any, any> ? I : never;
 }
 
-type ShapeOutput<S extends Shape> = {
+export type ShapeOutput<S extends Shape> = {
     [K in keyof S]: S[K] extends Step<any, infer CO, infer SO, any> ? CO | SO : never;
 }
 
-type ShapeErrors<S extends Shape> = {
+export type ShapeErrors<S extends Shape> = {
     [K in keyof S]: S[K] extends Step<any, any, any, infer E> ? E | undefined : never;
 };
 

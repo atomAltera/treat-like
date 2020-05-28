@@ -3,17 +3,17 @@ import {createContinueResult, createErrorResult} from "./result-builders";
 import {treat} from "./chain";
 
 // Types
-type Scheme = Step<any, any, any, any>[];
+export type Tuple = Step<any, any, any, any>[];
 
-// type TupleInput<S extends Scheme> = {
-//     [K in keyof S]: S[K] extends Step<infer I, any, any, any> ? I : never;
-// }
+export type TupleInput<S extends Tuple> = {
+    [K in keyof S]: S[K] extends Step<infer I, any, any, any> ? I : never;
+}
 
-type TupleOutput<S extends Scheme> = {
+export type TupleOutput<S extends Tuple> = {
     [K in keyof S]: S[K] extends Step<any, infer CO, infer SO, any> ? CO | SO : never;
 }
 
-type TupleErrors<S extends Scheme> = {
+export type TupleErrors<S extends Tuple> = {
     [K in keyof S]: S[K] extends Step<any, any, any, infer E> ? E | undefined : never;
 }
 
@@ -21,7 +21,7 @@ type TupleErrors<S extends Scheme> = {
  * Creates tuple validation chain from given scheme
  * @param scheme
  */
-export const tuple = <S extends Scheme>(...scheme: S) => {
+export const tuple = <S extends Tuple>(...scheme: S) => {
     return treat((input: unknown): Result<TupleOutput<S>, never, TupleErrors<S> | string> => {
         const error: TupleErrors<S> = [] as any;
         const output: TupleOutput<S> = [] as any;

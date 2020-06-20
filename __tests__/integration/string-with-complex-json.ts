@@ -48,18 +48,18 @@ describe("string with complex json", () => {
         }
     );
 
-    const email = string.pipe(match(/^\w+@\w+\.\w+$/));
+    const email = string.and(match(/^\w+@\w+\.\w+$/));
 
-    const phone = string.pipe(x => {
+    const phone = string.and(x => {
         return x.match(/^\d+$/) ? createContinueResult(x) : createErrorResult("invalid_phone")
     });
 
-    const chain = string.pipe(fromJSON).pipe(array(shape({
+    const chain = string.and(fromJSON).and(array(shape({
         name: string,
         email: email,
-        phones: array(phone).pipe(lt(3)),
-        isActive: byDefault(true).pipe(boolean),
-        meta: byDefault({}).pipe(shape({
+        phones: array(phone).and(lt(3)),
+        isActive: byDefault(true).and(boolean),
+        meta: byDefault({}).and(shape({
             foo: byDefault("bar")
         }))
     })));

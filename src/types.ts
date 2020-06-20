@@ -36,7 +36,7 @@ export type StepError<T> = T extends Step<any, any, any, infer E> ? E : never;
 // Chain types
 export interface Chain<I, CO = I, SO = never, E = never> extends Step<I, CO, SO, E> {
     then<CO1, SO1 = never, E1 = never>(step: Step<CO, CO1, SO1, E1>): Chain<I, CO1, SO1 | SO, E1 | E>
-    pipe<CO1, SO1 = never, E1 = never>(step: Step<CO, CO1, SO1, E1>): Chain<I, CO1, SO1 | SO, E1 | E>
+    and<CO1, SO1 = never, E1 = never>(step: Step<CO, CO1, SO1, E1>): Chain<I, CO1, SO1 | SO, E1 | E>
 }
 
 export type ChainInput<T> = T extends Chain<infer I, any, any, any> ? I : never;

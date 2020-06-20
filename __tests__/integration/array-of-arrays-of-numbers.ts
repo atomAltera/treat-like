@@ -4,7 +4,7 @@ import {array, createContinueResult, createErrorResult, number, treat} from "../
 describe("array of arrays of numbers", () => {
     const mul2 = treat((x: number) => createContinueResult(x * 2));
 
-    const chain = array(array(number.pipe(mul2)));
+    const chain = array(array(number.and(mul2)));
 
     test("valid input", () => {
         const input = [

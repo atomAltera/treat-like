@@ -11,8 +11,8 @@ describe("treat", () => {
 
     describe("creates chain", () => {
         const chain = treat(f)
-            .pipe(x => createContinueResult({x}))
-            .pipe(x => createContinueResult(JSON.stringify(x)));
+            .and(x => createContinueResult({x}))
+            .and(x => createContinueResult(JSON.stringify(x)));
 
         const input = Math.round(Math.random() * 1000);
         const expectedResult = createContinueResult(JSON.stringify({x: input * 2}));

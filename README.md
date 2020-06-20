@@ -35,8 +35,8 @@ So, let's define two basic chains to work with strings:
 ```typescript
 import {string, check, byDefault} from "treat-like";
 
-const requiredString = string.pipe(check(s => s.length > 0, "required"));
-const optionalString = byDefault("").pipe(string);
+const requiredString = string.and(check(s => s.length > 0, "required"));
+const optionalString = byDefault("").and(string);
 ```
 
 Why not to predefine this chains in package? Well, we think that in different cases the term "required string" can mean different things. Some time you may need a _required string_ be a non zero length JavaScipt string object. Some times you need to avoid null/undefined values and zero length string is perfectly fine for you.
@@ -110,7 +110,7 @@ function isPhoneValid(phone: string): boolean {
 
 const checkPhone = check(isPhoneValid, "invalid_format")
 
-const optioinalPhone = byDefault("-").pipe(string).pipe(checkPhone);
+const optioinalPhone = byDefault("-").and(string).and(checkPhone);
 
 optioinalPhone("444 222 444") // {ok: true, stop: false, output: "444 222 444"}
 optioinalPhone(null) // {ok: true, stop: true, output: "-"}
@@ -153,7 +153,7 @@ type Result<CO, SO = never, E = never> = ContinueResult<CO> | StopResult<SO> | E
 import {check, string} from "treat-like";
 import v from "validator";
 
-const email = string.pipe(check(v.isEmail, "not_a_email"));
+const email = string.and(check(v.isEmail, "not_a_email"));
 
 console.log(email("atomaltera@gmail.com")) // {ok: true, stop: false, output: 'atomaltera@gmail.com' }
 console.log(email("atomaltera")) // { ok: false, stop: true, error: 'not_a_email' }
@@ -178,11 +178,11 @@ function isStrongPassword(pass: string): boolean {
     return pass.length >= 8;
 }
 
-const requiredString = string.pipe(check(s => s.length > 0, "required"));
-const optionalString = byDefault("").pipe(string);
-const requiredEmail = string.pipe(check(v.isEmail, "not_a_email"))
-const strongPassword = string.pipe(check(isStrongPassword, "to_simple"));
-const optionalPhone = optionalString.pipe(check(v.isMobilePhone, "invalid_format"))
+const requiredString = string.and(check(s => s.length > 0, "required"));
+const optionalString = byDefault("").and(string);
+const requiredEmail = string.and(check(v.isEmail, "not_a_email"))
+const strongPassword = string.and(check(isStrongPassword, "to_simple"));
+const optionalPhone = optionalString.and(check(v.isMobilePhone, "invalid_format"))
 
 const registrationForm = shape({
     email: requiredEmail,
@@ -249,9 +249,9 @@ There is an array chain builder to work with arrays:
 import {check, string, array} from "treat-like";
 import v from "validator";
 
-const phone = string.pipe(check(v.isMobilePhone, "invalid_format"))
+const phone = string.and(check(v.isMobilePhone, "invalid_format"))
 
-const phoneNumberList = array(phone.pipe(check(x => x.length > 0, "no_phones_provided"));
+const phoneNumberList = array(phone.and(check(x => x.length > 0, "no_phones_provided"));
 ```
 
 Let's see results
@@ -287,13 +287,13 @@ console.log(phoneNumberList([])) // invalid: empty array
 
 As you can see here, _error_ field can be a `string` or an array of `string | undefiend`
 
-If you ommit part `.pipe(check(x => x.length > 0, "no_phones_provided"));` then error type will be an array of `string | undefiend`:
+If you ommit part `.and(check(x => x.length > 0, "no_phones_provided"));` then error type will be an array of `string | undefiend`:
 
 ```typescript
 import {check, string, array} from "treat-like";
 import v from "validator";
 
-const phone = string.pipe(check(v.isMobilePhone, "invalid_format"))
+const phone = string.and(check(v.isMobilePhone, "invalid_format"))
 
 const phoneNumberList = array(phone)
 
@@ -311,8 +311,8 @@ Tuples validation is supported too. Use `tuple` funciton to build tuple processi
 import {check, string, tuple} from "treat-like";
 import v from "validator";
 
-const phone = string.pipe(check(v.isMobilePhone, "invalid_phone"));
-const email = string.pipe(check(v.isEmail, "invalid_email"));
+const phone = string.and(check(v.isMobilePhone, "invalid_phone"));
+const email = string.and(check(v.isEmail, "invalid_email"));
 
 const phoneEmailTuple = tuple(phone, email);
 ```
@@ -375,7 +375,7 @@ const complexModel = shape({
     description: optionalText,
     subModels: array(shape({
         point: tuple(number, number),
-        active: byDefault(true).pipe(boolean),
+        active: byDefault(true).and(boolean),
     }))
 })
 ```
@@ -391,13 +391,13 @@ You can join three steps (say `A`, `B` and `C`) to chain by folloing styles:
 ### Flat style
 
 ```javascript
-chain1 = A.pipe(B).pipe(C)
+chain1 = A.and(B).and(C)
 ```
 
 ### Nested style
 
 ```javascript
-chain2 = A.pipe(B.pipe(C))
+chain2 = A.and(B.and(C))
 ```
 
 The final chains would be the same.

@@ -16,36 +16,36 @@ export function createCallTestForChain(chain: Chain<any, any, any, any>, input: 
 
 
 export function createExtendTestsForChain(chain: Chain<any, any, any, any>, input: any, expectedResult: Result<any, any, any>, depth: number = 4) {
-    test("has *then* method", () => {
-        expect(typeof chain.then).toBe("function");
+    test("has *pipe* method", () => {
+        expect(typeof chain.pipe).toBe("function");
     });
 
 
     if (expectedResult.ok && !expectedResult.stop) {
 
-        describe("*then* method extends continue chain with continue step", () => {
+        describe("*pipe* method extends continue chain with continue step", () => {
 
             const step = (x: any) => createContinueResult({hello: x});
-            const newChain = chain.then(step);
+            const newChain = chain.pipe(step);
             const newExpectedResult = step(expectedResult.output);
 
             createTestsForChain(newChain, input, newExpectedResult, --depth);
         });
 
-        describe("*then* method extends continue chain with stop step", () => {
+        describe("*pipe* method extends continue chain with stop step", () => {
 
             const step = (x: any) => createStopResult({hello: x});
-            const newChain = chain.then(step);
+            const newChain = chain.pipe(step);
             const newExpectedResult = step(expectedResult.output);
 
             createTestsForChain(newChain, input, newExpectedResult, --depth);
         });
 
-        describe("*then* method extends continue chain with error step", () => {
+        describe("*pipe* method extends continue chain with error step", () => {
 
             const error = Symbol();
             const step = (x: any) => createErrorResult(error);
-            const newChain = chain.then(step);
+            const newChain = chain.pipe(step);
             const newExpectedResult = createErrorResult(error);
 
             createTestsForChain(newChain, input, newExpectedResult, --depth);
@@ -53,54 +53,54 @@ export function createExtendTestsForChain(chain: Chain<any, any, any, any>, inpu
 
     } else if (expectedResult.ok && expectedResult.stop) {
 
-        describe("*then* method extends stop chain with continue step", () => {
+        describe("*pipe* method extends stop chain with continue step", () => {
 
             const step = (x: any) => createContinueResult({hello: x});
-            const newChain = chain.then(step);
+            const newChain = chain.pipe(step);
 
             createTestsForChain(newChain, input, expectedResult, --depth);
         });
 
-        describe("*then* method extends stop chain with stop step", () => {
+        describe("*pipe* method extends stop chain with stop step", () => {
 
             const step = (x: any) => createStopResult({hello: x});
-            const newChain = chain.then(step);
+            const newChain = chain.pipe(step);
 
             createTestsForChain(newChain, input, expectedResult, --depth);
         });
 
-        describe("*then* method extends stop chain with error step", () => {
+        describe("*pipe* method extends stop chain with error step", () => {
 
             const error = Symbol();
             const step = (x: any) => createErrorResult(error);
-            const newChain = chain.then(step);
+            const newChain = chain.pipe(step);
 
             createTestsForChain(newChain, input, expectedResult, --depth);
         });
 
     } else {
 
-        describe("*then* method extends error chain with continue step", () => {
+        describe("*pipe* method extends error chain with continue step", () => {
 
             const step = (x: any) => createContinueResult({hello: x});
-            const newChain = chain.then(step);
+            const newChain = chain.pipe(step);
 
             createTestsForChain(newChain, input, expectedResult, --depth);
         });
 
-        describe("*then* method extends error chain with stop step", () => {
+        describe("*pipe* method extends error chain with stop step", () => {
 
             const step = (x: any) => createStopResult({hello: x});
-            const newChain = chain.then(step);
+            const newChain = chain.pipe(step);
 
             createTestsForChain(newChain, input, expectedResult, --depth);
         });
 
-        describe("*then* method extends error chain with error step", () => {
+        describe("*pipe* method extends error chain with error step", () => {
 
             const error = Symbol();
             const step = (x: any) => createErrorResult(error);
-            const newChain = chain.then(step);
+            const newChain = chain.pipe(step);
 
             createTestsForChain(newChain, input, expectedResult, --depth);
         });

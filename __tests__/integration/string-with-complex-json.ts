@@ -4,7 +4,6 @@ import {
     byDefault,
     createContinueResult,
     createErrorResult,
-    required,
     Result,
     shape,
     string,
@@ -49,18 +48,18 @@ describe("string with complex json", () => {
         }
     );
 
-    const email = string.then(match(/^\w+@\w+\.\w+$/));
+    const email = string.pipe(match(/^\w+@\w+\.\w+$/));
 
-    const phone = string.then(x => {
+    const phone = string.pipe(x => {
         return x.match(/^\d+$/) ? createContinueResult(x) : createErrorResult("invalid_phone")
     });
 
-    const chain = string.then(fromJSON).then(array(shape({
+    const chain = string.pipe(fromJSON).pipe(array(shape({
         name: string,
         email: email,
-        phones: array(phone).then(lt(3)),
-        isActive: byDefault(true).then(boolean),
-        meta: byDefault({}).then(shape({
+        phones: array(phone).pipe(lt(3)),
+        isActive: byDefault(true).pipe(boolean),
+        meta: byDefault({}).pipe(shape({
             foo: byDefault("bar")
         }))
     })));

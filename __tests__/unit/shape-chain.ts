@@ -5,8 +5,8 @@ describe("shape", () => {
 
     const chain = shape({
         email: string,
-        name: optional.then(string),
-        age: optional.then(number),
+        name: optional.pipe(string),
+        age: optional.pipe(number),
     });
 
     describe("valid input", () => {

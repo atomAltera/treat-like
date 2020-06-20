@@ -5,7 +5,7 @@ describe("array", () => {
 
     describe("tuple of required (string, number)", () => {
         const chain = tuple(
-            string.then(uppercase),
+            string.pipe(uppercase),
             number,
         );
 

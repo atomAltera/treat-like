@@ -4,7 +4,7 @@ import {createTestsForChain, uppercase} from "../utils";
 describe("array", () => {
 
     describe("array of required string", () => {
-        const chain = array(string.then(uppercase));
+        const chain = array(string.pipe(uppercase));
 
         describe("valid input", () => {
             const input = ["hello", "world"];

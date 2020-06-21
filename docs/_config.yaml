@@ -1,0 +1,13 @@
+remote_theme: fluffyemily/just-the-docs
+
+# Enable or disable the site search
+search_enabled: true
+
+# Aux links for the upper right navigation
+aux_links:
+  "Docs":
+    - "//atomaltera.github.io/treat-like/"
+  "Examples":
+    - "//atomaltera.github.io/treat-like/examples/"
+  "GitHub":
+    - "//github.com/atomaltera/treat-like"

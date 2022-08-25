@@ -21,7 +21,7 @@ export function joinSteps<I, CO1 = I, SO1 = never, E1 = never, CO2 = I, SO2 = ne
 
             return step2(lastResult.output);
 
-        } catch (e) {
+        } catch (e: any) {
             // TODO: Do not pass internal error
             return createErrorResult(e);
         }
